@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - update-avialble-version-in-readme-github-actions
+      - update-available-version-in-readme-github-actions
 
 jobs:
   get-container-versions:
@@ -40,7 +40,7 @@ jobs:
       - name: Read current README.md
         id: read-readme
         run: |
-          readme_content=$(cat README.md)
+          readme_content=$(<README.md)
           echo "$readme_content" >> $GITHUB_OUTPUT
 
       - name: Update README.md

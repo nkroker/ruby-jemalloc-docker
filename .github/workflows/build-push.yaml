@@ -6,10 +6,12 @@ on:
     paths-ignore:
       - "README.md"
       - "LICENSE.md"
+      - .github/
   push:
     paths-ignore:
       - "README.md"
       - "LICENSE.md"
+      - .github/
 
 jobs:
   gather-versions:
