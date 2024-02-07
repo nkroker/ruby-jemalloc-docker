@@ -101,3 +101,6 @@ dgoss run -ti -e RUBY_VERSION=3.2.2 ruby-jemalloc
 ```
 
 _Note: `3.2.2` is the default. And don't forget to also pass the correct `RUBY_CHECKSUM`._
+## Latest Container Versions
+- Current: [3.0.6,3.1.4,3.2.3]
+- Old: [3.0.4,3.0.5,3.1.2,3.1.3,3.2.0,3.2.1,3.2.2]
