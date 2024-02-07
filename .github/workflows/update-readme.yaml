@@ -46,6 +46,12 @@ jobs:
       - name: Append README content to output
         run: echo "${{ steps.read-readme.outputs.content }}" >> $GITHUB_OUTPUT
 
+      - name: Update README.md
+        run: |
+          echo "## Latest Container Versions" >> README.md
+          echo "- Current: ${{ needs.get-container-versions.outputs.current }}" >> README.md
+          echo "- Old: ${{ needs.get-container-versions.outputs.old }}" >> README.md
+
       - name: Commit README changes
         run: |
           git config --local user.email "action@github.com"
