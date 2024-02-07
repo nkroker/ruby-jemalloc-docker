@@ -1,6 +1,10 @@
 name: Update README
+
 on:
   push:
+    branches:
+      - main
+      - update-avialble-version-in-readme-github-actions
 
 jobs:
   get-container-versions:
@@ -25,3 +29,29 @@ jobs:
           old_thirtytwo=$(echo ${versions_thirtytwo} | jq -Mcj '.[:-1]')
           echo "current=$(echo [${current_thirty},${current_thirtyone},${current_thirtytwo}] | jq -Mcj '. | flatten | sort')" >> $GITHUB_OUTPUT
           echo "old=$(echo [${old_thirty},${old_thirtyone},${old_thirtytwo}] | jq -Mcj '. | flatten | sort')" >> $GITHUB_OUTPUT
+
+  update-readme:
+    needs: get-container-versions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Read current README.md
+        id: read-readme
+        run: |
+          readme_content=$(cat README.md)
+          echo "$readme_content" >> $GITHUB_OUTPUT
+
+      - name: Update README.md
+        run: |
+          echo "## Latest Container Versions" >> README.md
+          echo "- Current: ${{ needs.get-container-versions.outputs.current }}" >> README.md
+          echo "- Old: ${{ needs.get-container-versions.outputs.old }}" >> README.md
+
+      - name: Commit README changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add README.md
+          git commit -m "Update latest container versions in README.md" || echo "No changes to commit"
