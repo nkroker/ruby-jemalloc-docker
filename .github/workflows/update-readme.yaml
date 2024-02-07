@@ -39,9 +39,12 @@ jobs:
 
       - name: Read current README.md
         id: read-readme
-        run: |
-          readme_content=$(<README.md)
-          echo "$readme_content" >> $GITHUB_OUTPUT
+        uses: actions/read-file@v2
+        with:
+          path: README.md
+
+      - name: Append README content to output
+        run: echo "${{ steps.read-readme.outputs.content }}" >> $GITHUB_OUTPUT
 
       - name: Update README.md
         run: |
