@@ -2,9 +2,9 @@ name: Update README
 
 on:
   push:
-    branches:
-      - main
-      - update-available-version-in-readme-github-actions
+    # branches:
+    #   - main
+    #   - update-available-version-in-readme-github-actions
 
 jobs:
   get-container-versions:
